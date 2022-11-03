@@ -20,10 +20,15 @@ namespace PowerDocu.Common
 
         public static string getConnectorIconFile(string connectorName)
         {
+        //    NotificationHelper.SendNotification($"FolderPath: {folderPath}");
             if (File.Exists(folderPath + connectorName + ".png"))
             {
+       //           NotificationHelper.SendNotification($"Found file: {connectorName}");
                 return folderPath + connectorName + ".png";
             }
+               // Debuginnng missing connector icon files
+                  NotificationHelper.SendNotification($"Not found file: {connectorName}");
+
             return "";
         }
         public static int numberOfConnectorIcons()
@@ -88,7 +93,7 @@ namespace PowerDocu.Common
                     }
                     connectorIcons.Add(connectorIcon);
                     var response = await client.GetAsync(connectorIcon.Url);
-                    File.WriteAllBytesAsync(folderPath + connectorIcon.Uniquename + ".png", await response.Content.ReadAsByteArrayAsync());
+                    await File.WriteAllBytesAsync(folderPath + connectorIcon.Uniquename + ".png", await response.Content.ReadAsByteArrayAsync());
                 }
                 File.WriteAllText(folderPath + "connectors.json", JsonConvert.SerializeObject(connectorIcons));
                 NotificationHelper.SendNotification($"Update complete. A total of {connectorIcons.Count} connectors were found.");

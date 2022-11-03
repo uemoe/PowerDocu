@@ -22,7 +22,7 @@ namespace PowerDocu.Common
         public static string GetExecutablePath()
         {
             var mainModule = System.Diagnostics.Process.GetCurrentProcess().MainModule;
-            return mainModule.FileName.Replace(mainModule.ModuleName, "");
+            return  Path.GetDirectoryName(mainModule.FileName);
         }
     }
 }

@@ -90,9 +90,11 @@ namespace PowerDocu.FlowDocumenter
             ConnectorIcon connectorIcon = ConnectorHelper.getConnectorIcon(connectorUniqueName);
             ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Jpeg);
             int imageWidth, imageHeight;
-            if (ConnectorHelper.getConnectorIconFile(connectorUniqueName) != "")
+         //   NotificationHelper.SendNotification($"Looking for Icon: {connectorUniqueName}");
+            var connectorIconFilePath = ConnectorHelper.getConnectorIconFile(connectorUniqueName);
+            if ( !string.IsNullOrWhiteSpace(connectorIconFilePath))
             {
-                using (FileStream stream = new FileStream(ConnectorHelper.getConnectorIconFile(connectorUniqueName), FileMode.Open))
+                using (FileStream stream = new FileStream(connectorIconFilePath, FileMode.Open))
                 {
                     using (var image = Image.FromStream(stream, false, false))
                     {
