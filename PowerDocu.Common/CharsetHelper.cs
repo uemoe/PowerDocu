@@ -29,6 +29,13 @@ namespace PowerDocu.Common
             var ascii = new ASCIIEncoding();
             byte[] encodedBytes = ascii.GetBytes(stringBuilder.ToString().Normalize(NormalizationForm.FormC).Replace(":", "-"));
             var cleaned = ascii.GetString(encodedBytes).Replace("?", "-").Replace("<", "-").Replace(">", "-").Replace("/", "-");
+            //  cleaned = cleaned.Replace('_',' ');
+            return cleaned;
+        }
+
+        public static string GetSafeNameWithSpaces(string s)
+        {
+            var cleaned = GetSafeName(s).Replace('_', ' ');
             return cleaned;
         }
     }
